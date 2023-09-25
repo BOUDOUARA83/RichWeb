@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link
+  href="https://fonts.googleapis.com/css?family=Open+Sans"
+  rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="styles/style.css" rel="stylesheet" />
+    <title>Hello World</title>
+   
+  </head>
+  <body>
+    <h1>Hello world </h1>
+    <img src="image/world.png" alt="My test image" />
+    
+    <p>
+        A “Hello, world!” program is a computer program that outputs or displays “Hello, world!” to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program, and as such is often the very first program people write.</p>
+        <a>For more information visit</a>
+    <a href="https://press.rebus.community/programmingfundamentals/chapter/hello-world/#:~:text=A%20%E2%80%9CHello%2C%20world!%E2%80%9D,very%20first%20program%20people%20write.">Hello world</a>
+    
+    <button id="myButton">Change Name</button>
+    <script>
+        const myHeading = document.querySelector("h1");
+    myHeading.textContent = "Hello world!";
+    const myButton = document.getElementById("myButton");
+
+
+function setUserName()
+ {
+    const myName = prompt("Please enter your name.");
+    if (myName) 
+    {
+        localStorage.setItem("name", myName);
+        myHeading.textContent = `Welcome to Hello World, ${myName}`;
+
+    }
+}
+  
+if (!localStorage.getItem("name")) 
+{
+    setUserName();
+} else
+{
+    const storedName = localStorage.getItem("name");
+    myHeading.textContent = `hello world, ${storedName}`;
+}
+
+// Add a click event handler for the button
+myButton.onclick = () => {
+    setUserName();
+};
+    </script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
