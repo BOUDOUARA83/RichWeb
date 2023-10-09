@@ -1,0 +1,23 @@
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 500px 1fr 2fr;
+  }
+
+  .boxes
+{
+    flex-grow: 0.25;
+    border: 1px solid;
+}
+
+@media (max-width: 720px) {
+    .boxes {
+      width: calc(50% - 2px)
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .boxes {
+      width: calc(100% - 2px)
+    }
+  }
