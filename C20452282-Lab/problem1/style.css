@@ -1,7 +1,8 @@
 
 .wrapper {
-    display: grid;
-    grid-template-columns: 500px 1fr 2fr;
+     display: flex;
+    flex-wrap: wrap;
+  
   }
 
   .boxes
