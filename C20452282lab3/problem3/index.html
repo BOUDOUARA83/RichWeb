@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 3</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="javascript.js"></script>
+</head>
+<body>
+    <div class="search">
+    <input type="text" placeholder="enter github username" id="username" class="searchField">
+    <input type="button" value="Search" onclick="findUser()" class="SearchButton">
+    </div>
 
+    <table class="UserProfile">
+        <th>User Profile</th>
+        <tr valign="top" align="center">
+            <td><img src="profile.png" id="avatar"></td>
+        </tr>
+        <tbody id="UserProfile">
+            <tr><td>Name</td></tr>
+            <tr><td>Username</td></tr>
+            <tr><td>Email</td></tr>
+            <tr><td>Location</td></tr>
+            <tr><td>Number of Gists</td></tr>
+        </tbody>
+    </table>
+
+    <table class="UserRepos">
+        <th colspan="2">User Repos</th>
+        <tbody id="UserRepos">
+
+        </tbody>
+    </table>
+</body>
+</html>
