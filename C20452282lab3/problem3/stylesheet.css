@@ -1,0 +1,38 @@
+.searchField{
+    width: 60%;
+    height: 25px;
+}
+
+img{
+    height: 300px;
+}
+
+.search{
+    padding: 3em;
+}
+
+.UserProfile td,th, .UserRepos td, th{
+    border-style: solid;
+}
+
+.UserRepos{
+    width: 55%;
+    padding-left: 6em;
+}
+
+.UserProfile td, .UserRepos td{
+    height: 30px
+}
+
+.UserProfile th, .UserRepos th{
+    height: 36px;
+}
+
+.UserProfile{
+    padding-left: 3em;
+    width: 37%;
+}
+
+.UserProfile, .UserRepos{
+    float: left;
+}
