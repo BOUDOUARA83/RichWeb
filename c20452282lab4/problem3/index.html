@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lab 3 part 3</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://unpkg.com/rxjs@7.5.7/dist/bundles/rxjs.umd.min.js"></script>
+    <script src="javascript.js"></script>
+    <h1 class="header">Note taking app</h1>
+</head>
+<body>
+    <div class="centreButton">
+        <input type="text" placeholder="Enter note" id="UserInput">
+        <input type="button" value="Add Note" id="AddNote">
+        <ul id="NoteList"></ul>
+    </div>
+
+    <script>
+        class Note {
+            constructor(text, parent = null) {
+                this.text = text;
+                this.parent = parent;
+                this.children = [];
+            }
+        }
+
+        let colors = ["Aqua", "Green", "Red", "Purple"];
+        let addButton = document.getElementById("AddNote");
+
+        rxjs.fromEvent(addButton, 'click')
+            .subscribe(() => addNote()
+        );
+
+        function addNote() {
+            let userInput = document.getElementById("UserInput");
+            if (userInput.value == "") {
+                alert("Please enter a note");
+            } else {
+                let list = document.getElementById("NoteList");
+                let div = document.createElement("div");
+                div.className = "Notes";
+
+                let note = new Note(userInput.value);
+
+                let noteElement = document.createElement("li");
+                let noteText = document.createTextNode(note.text);
+                noteElement.appendChild(noteText);
+                div.appendChild(noteElement);
+
+                let addChildButton = createButton("Add Child");
+                addChildButton.addEventListener('click', () => addChildFunction(note, div));
+                div.appendChild(addChildButton);
+
+                let deleteButton = createButton("Delete");
+                deleteButton.addEventListener('click', () => deleteFunction(note, div));
+                div.appendChild(deleteButton);
+
+                for (let i = 0; i < colors.length; i++) {
+                    let colorButton = createButton(colors[i]);
+                    colorButton.addEventListener('click', () => changeColourFunction(div, colors[i]));
+                    div.appendChild(colorButton);
+                }
+
+                list.appendChild(div);
+            }
+        }
+
+        function addChildFunction(parentNote, parentDiv) {
+            let childDiv = document.createElement("div");
+            let deleteChildButton = createButton("Delete Child");
+
+            childDiv.innerHTML = "Enter in subnote";
+            childDiv.contentEditable = true;
+            parentNote.children.push(new Note(childDiv.innerText, parentNote));
+
+            parentDiv.appendChild(childDiv);
+            childDiv.appendChild(deleteChildButton);
+
+            deleteChildButton.addEventListener('click', () => deleteFunction(childDiv));
+        }
+
+        function deleteFunction(note, noteElement) {
+            if (note.parent) {
+                // Remove note from parent's children array
+                note.parent.children = note.parent.children.filter(child => child !== note);
+            }
+            noteElement.remove();
+        }
+
+        function changeColourFunction(note, colour) {
+            note.style.backgroundColor = colour;
+        }
+
+        function createButton(label) {
+            let button = document.createElement("button");
+            button.innerHTML = label;
+            button.className = "NoteButton";
+            return button;
+        }
+    </script>
+</body>
+</html>
