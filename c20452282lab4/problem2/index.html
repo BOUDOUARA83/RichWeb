@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lab3 q2</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://unpkg.com/rxjs@7.5.7/dist/bundles/rxjs.umd.min.js"></script>
+    <script src="javascript.js"></script>
+</head>
+<body>
+    <div id="inputTime" class="inputTime">
+        <input type="number" placeholder="h" id="hours" min="0">
+        <a>:</a>
+        <input type="number" placeholder="m" id="minutes" min="0">
+        <a>:</a>
+        <input type="number" placeholder="s" id="seconds" min="0">
+        <br>
+        <br>
+        <input type="button" value="START COUNTDOWN" id="startButton" class="startButton">
+    </div>
+
+    <div id="DisplayTimeCountdown" class="DisplayTimeCountdown">00:00:00</div>
+
+    <script>
+        const hoursInput = document.getElementById('hours');
+        const minutesInput = document.getElementById('minutes');
+        const secondsInput = document.getElementById('seconds');
+        const displayTimeCountdown = document.getElementById('DisplayTimeCountdown');
+        const startButton = document.getElementById('startButton');
+
+        const startClick$ = rxjs.fromEvent(startButton, 'click');
+
+        startClick$.subscribe(() => startCountdown());
+
+        function startCountdown() {
+          const hours = parseInt(hoursInput.value) || 0;
+          const minutes = parseInt(minutesInput.value) || 0;
+          const seconds = parseInt(secondsInput.value) || 0;
+          const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+          rxjs.interval(1000)
+            .pipe(
+              rxjs.operators.map(value => totalSeconds - value),
+              rxjs.operators.takeWhile(value => value >= 0)
+            )
+            .subscribe(time => displayCountdown(time));
+        }
+
+        function displayCountdown(time) {
+          const formattedTime = formatTime(time);
+          displayTimeCountdown.textContent = formattedTime;
+        }
+
+        function formatTime(time) {
+          const hours = Math.floor(time / 3600);
+          const minutes = Math.floor((time % 3600) / 60);
+          const seconds = time % 60;
+
+          const formattedHours = hours.toString().padStart(2, '0');
+          const formattedMinutes = minutes.toString().padStart(2, '0');
+          const formattedSeconds = seconds.toString().padStart(2, '0');
+
+          return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+        }
+    </script>
+</body>
+</html>
