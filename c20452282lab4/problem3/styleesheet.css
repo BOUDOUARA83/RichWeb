@@ -1,0 +1,47 @@
+.header {
+    text-align: center;
+}
+
+.centreButton{
+    text-align: center;
+}
+
+*{
+    background-color: aqua;    
+}
+
+.Notes > li{
+    width: fit-content;
+    height: fit-content;
+    padding: 1em;
+    margin-bottom: 10px;
+}
+
+.NoteButton{
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+}
+
+.Notes{
+    width:25%;
+    padding: 1em;
+    border: 1px black solid;
+    background-color: rgb(131, 123, 123);
+    margin: 0 auto;
+}
+
+.Aqua,.Green,.Red{
+    margin-left: 10px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+}
+
+.Aqua{ background-color: aqua;}
+
+.Green{background-color: green;}
+
+.Red{background-color: red;}
+
+.Purple{background-color: purple;}
