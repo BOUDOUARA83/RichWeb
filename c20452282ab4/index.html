@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 3</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://unpkg.com/rxjs@7.5.7/dist/bundles/rxjs.umd.min.js"></script>
+    <h1 class="header">Note taking app</h1>
+</head>
+<body>
+    <div class="centreButton">
+        <input type="text" placeholder="Enter note" id="UserInput">
+        <input type="button" value="Add Note" id="AddNote">
+
+        <ul id="NoteList"></ul>
+    </div>
+
+    <script>
+        const colors = ["Aqua", "Green", "Red", "Purple"];
+        const addButton = document.getElementById("AddNote");
+
+      //  Instead of directly adding a click event listener, use RxJS to create an Observable for the Add Note button click.
+        const addNote$ = rxjs.fromEvent(addButton, 'click');
+
+        addNote$.subscribe(() => addNote());
+
+        function addNote() {
+            const userInput = document.getElementById("UserInput");
+
+            if (userInput.value === "") {
+                alert("Please enter a note");
+            } else {
+                const list = document.getElementById("NoteList");
+                const div = document.createElement("div");
+                div.className = "Notes";
+
+                const note = document.createElement("li");
+                const noteText = document.createTextNode(userInput.value);
+                note.appendChild(noteText);
+                div.appendChild(note);
+
+                const editButton = createButton("Edit");
+                const deleteButton = createButton("Delete");
+
+                rxjs.fromEvent(editButton, 'click').subscribe(() => editNoteText(noteText));
+                rxjs.fromEvent(deleteButton, 'click').subscribe(() => deleteNoteElement(div));
+
+                div.appendChild(editButton);
+                div.appendChild(deleteButton);
+
+                colors.forEach(color => {
+                    const colorButton = createButton(color);
+                    rxjs.fromEvent(colorButton, 'click').subscribe(() => changeColour(div, color));
+                    div.appendChild(colorButton);
+                });
+
+                list.appendChild(div);
+            }
+        }
+
+        function createButton(label) {
+            const button = document.createElement("button");
+            button.innerHTML = label;
+            button.className = "NoteButton";
+            return button;
+        }
+
+        function editNoteText(originalNote) {
+            const editedNote = prompt("Edit Note please");
+
+            if (editedNote !== null) {
+                originalNote.nodeValue = editedNote;
+            }
+        }
+
+        function deleteNoteElement(originalNote) {
+            originalNote.remove();
+        }
+
+        function changeColour(note, colour) {
+            note.style.backgroundColor = colour;
+        }
+    </script>
+</body>
+</html>
