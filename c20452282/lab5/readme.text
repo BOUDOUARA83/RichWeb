@@ -1,0 +1,5 @@
+i created new react application for my note app 
+for probelm 2 i integrated n external API to fetch random quotes and display them in your notes application. i used the "Quotable REST API" for this example.
+for problem 3 
+Search Functionality: You can search for notes based on keywords.
+Dark Mode Toggle: Clicking the "Toggle Dark Mode" button switches between light and dark modes.
